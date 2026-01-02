@@ -93,4 +93,40 @@ Course completion rate.
 ---
 
 ## Repository Structure
+product-analytics-course-completion/
+│
+├── README.md
+├── data/
+│ └── README.md
+├── sql/
+│ ├── 01_data_cleaning.sql
+│ ├── 02_funnel_analysis.sql
+│ ├── 03_retention_and_cohorts.sql
+│ └── 04_behavioral_analysis.sql
+├── notebooks/
+│ └── retention_analysis.ipynb
+├── figures/
+│ ├── retention_curve.png
+│ └── normalized_retention.png
+└── requirements.txt
+
+---
+
+## Tools
+- SQL (SQLite)
+- Python (Pandas, NumPy, Matplotlib)
+- Jupyter Notebook
+
+---
+
+## Author
+**Aditya Gururaj Muttagi**  
+Product Analytics case study
+
+---
+
+## Notes
+This project prioritizes **judgment, analytical rigor, and decision-making clarity** over dashboarding or model complexity.  
+All conclusions are intentionally conservative and designed to be validated through experimentation.
+
 
