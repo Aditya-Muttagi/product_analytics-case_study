@@ -1,132 +1,79 @@
-# Diagnosing Course Completion Failure in an Online Learning Platform  
-**Product Analytics Case Study**
+# Course Completion Analysis — Product Analytics Case Study
 
-## Overview
-Course completion rates on online learning platforms are often extremely low.  
-This project investigates **where learners fail in the lifecycle**, **which early behaviors gate success**, and **what product intervention could realistically improve completion**.
+## Context
+Online courses often suffer from very low completion rates.  
+The goal of this project was to understand **where learners drop off**, **which early behaviors are associated with completion**, and **what product change would be most likely to improve outcomes**.
 
-The work is intentionally scoped to mirror how a Product Analyst would approach a real product problem: disciplined analysis, conservative assumptions, and experiment-ready recommendations.
-
----
-
-## Core Product Question
-> **Which early learner behaviors most strongly increase the likelihood of course completion, and where should the product intervene in the lifecycle?**
+This work was done as a standalone product analytics case study using an anonymized online course dataset.
 
 ---
 
-## Dataset
-An anonymized online course dataset containing:
-- User registration and completion indicators
-- Engagement depth metrics (events, videos, chapters, forum posts)
+## Core Question
+**Which early learner behaviors are most strongly associated with course completion, and where should the product intervene in the learner lifecycle?**
+
+---
+
+## Data
+The dataset contains one row per learner per course, including:
+- Registration, engagement, and completion indicators
+- Aggregated engagement metrics (events, videos, chapters, forum posts)
 - Course start and last activity timestamps
 
-**Note:**  
-Raw data is not included due to privacy and size constraints.  
-All analysis is reproducible given access to a similar schema.
+Raw data is not included due to privacy constraints.
 
 ---
 
-## Analytical Approach
+## Approach
 
-### 1. Lifecycle & Funnel Diagnosis
-- Modeled the learner funnel from registration → engagement → completion
-- Identified the dominant failure point prior to meaningful exploration
-- Established that completion failure occurs very early in the lifecycle
+### Lifecycle and Funnel Analysis
+I first modeled the learner lifecycle from registration through engagement to completion to identify where the largest drop-offs occur. This helped isolate whether completion failure was a late-stage content issue or an early engagement problem.
 
-### 2. Retention Analysis
-- Built retention curves to measure learner persistence over time
-- Identified a **hard early retention threshold (~8 days)** gating success
-- Validated findings across cohorts to rule out temporal artifacts
+### Retention Analysis
+Using course start time as the cohort anchor, I analyzed learner retention over time and built retention curves to understand how long learners typically remain active. This revealed a clear early retention threshold beyond which completion becomes materially more likely.
 
-### 3. Behavioral Diagnosis
-- Restricted analysis to learners who crossed the early retention threshold
-- Compared engagement intensity across retained completers vs non-completers
-- Normalized behaviors per active day to avoid duration bias
+### Cohort Validation
+To ensure the findings were not driven by a single time period, I repeated the retention and completion analysis across monthly cohorts.
 
-### 4. Experiment Design
-- Translated insights into a product-ready A/B experiment
-- Focused on early, controllable behavioral levers rather than vanity metrics
+### Behavioral Comparison
+I then focused only on learners who crossed the early retention threshold and compared their engagement patterns. To avoid bias from longer course duration, engagement metrics were normalized per active day.
+
+### Experiment Design
+Finally, I translated the findings into a concrete A/B experiment that could be run by a product team.
 
 ---
 
 ## Key Findings
 
-- Learners active for fewer than **8 days almost never complete courses**
-- Completion probability increases sharply after crossing the early retention threshold
-- Among retained learners, **video consumption intensity per active day** is the strongest differentiator of completion
-- Social or forum participation does **not** materially impact completion outcomes
+- Overall course completion was very low (~2–3%)
+- Learners who disengaged within the first week almost never completed a course
+- Reaching approximately 8 active days appears to be a prerequisite for completion
+- Among learners who were retained beyond this point, higher video consumption intensity per active day was strongly associated with completion
+- Forum or social activity did not meaningfully differentiate completers from non-completers
 
 ---
 
-## Product Recommendation
-Focus on **video-first onboarding during the first 8 days**, guiding learners through a structured early video path to increase engagement intensity before behavior stabilizes.
+## Recommendation
+Based on these findings, the highest-leverage product change is to focus on **early video engagement** rather than late-stage nudges or community features.
 
-This intervention is:
-- Low engineering effort
-- Behaviorally targeted
-- Directly aligned with observed success patterns
+A reasonable first step would be to guide new learners through a clear video sequence during the first week, making it easier to maintain momentum while engagement patterns are still forming.
 
 ---
 
 ## Experiment Design (Summary)
 
-**Objective:**  
-Increase course completion by increasing early video consumption intensity.
-
-**Population:**  
-Newly registered learners during the first 8 days after course start.
-
-**Treatment:**  
-A video-focused onboarding experience emphasizing early video progression.
-
-**Primary Metric:**  
-Course completion rate.
-
-**Diagnostics:**  
-- Videos per active day (Days 1–8)  
-- % learners reaching ≥8 active days  
-
-**Guardrails:**  
-- Day-1 abandonment  
-- Session fatigue indicators  
-
----
-
-## Repository Structure
-product-analytics-course-completion/
-│
-├── README.md
-├── data/
-│ └── README.md
-├── sql/
-│ ├── 01_data_cleaning.sql
-│ ├── 02_funnel_analysis.sql
-│ ├── 03_retention_and_cohorts.sql
-│ └── 04_behavioral_analysis.sql
-├── notebooks/
-│ └── retention_analysis.ipynb
-├── figures/
-│ ├── retention_curve.png
-│ └── normalized_retention.png
-└── requirements.txt
+- **Population:** Newly registered learners at course start  
+- **Treatment:** Video-focused onboarding during the first week  
+- **Primary metric:** Course completion rate  
+- **Secondary diagnostics:** Videos per active day, share of learners reaching ≥8 active days  
+- **Guardrails:** Early abandonment and signs of session fatigue  
 
 ---
 
 ## Tools
 - SQL (SQLite)
 - Python (Pandas, NumPy, Matplotlib)
-- Jupyter Notebook
 
 ---
 
 ## Author
-**Aditya Gururaj Muttagi**  
-Product Analytics case study
-
----
-
-## Notes
-This project prioritizes **judgment, analytical rigor, and decision-making clarity** over dashboarding or model complexity.  
-All conclusions are intentionally conservative and designed to be validated through experimentation.
-
-
+Aditya Gururaj Muttagi
