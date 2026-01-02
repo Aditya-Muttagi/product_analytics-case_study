@@ -72,8 +72,3 @@ A reasonable first step would be to guide new learners through a clear video seq
 ## Tools
 - SQL (SQLite)
 - Python (Pandas, NumPy, Matplotlib)
-
----
-
-## Author
-Aditya Gururaj Muttagi
